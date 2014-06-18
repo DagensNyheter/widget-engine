@@ -1,0 +1,34 @@
+{
+	"markers":[
+	{
+		"header": "Akalla by", 
+		"cords": [59.41262, 17.9121],
+		"info": "kl. 12-16. Ponnyridning, café och grill finns under firandet.",
+		"imgsrc": "/img/pin.png"
+	},
+	{
+		"header": "Akalla by2", 
+		"cords": [59.37210719999999, 17.974233599999934],
+		"info": "grill finns under firandet.",
+		"imgsrc": "/img/pin.png"
+	},
+	{
+		"header": "Akalla by3", 
+		"cords": [59.338866, 17.923331],
+		"info": "Ponnyridning, café och grill finns under firandet.",
+		"imgsrc": "/img/pin.png"
+	},
+	{
+		"header": "Akalla by4", 
+		"cords": [59.38815406402894, 17.928609712980688],
+		"info": "kl. 12-16. Ponnyridning, finns under firandet.",
+		"imgsrc": "/img/pin.png"
+	},
+	{
+		"header": "Akalla by5", 
+		"cords": [59.3069066, 18.086649699999953],
+		"info": "café och grill finns under firandet.",
+		"imgsrc": "/img/pin.png"
+	}
+	]
+}

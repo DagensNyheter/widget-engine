@@ -1,0 +1,40 @@
+
+body {
+    padding: 5em;
+    background: #87BEC5;
+}
+
+.test-graph {
+    margin-bottom: 2em;
+    padding: 2em;
+    background: #fff;
+    border-radius: 1em;
+}
+
+.test-graph path {
+    stroke: steelblue;
+    stroke-width: 1;
+    fill: none;
+}
+
+.test-graph .axis {
+    shape-rendering: crispEdges;
+}
+
+.test-graph .x.axis line {
+    stroke: lightgrey;
+}
+
+.test-graph .x.axis .minor {
+    stroke-opacity: .5;
+}
+
+.test-graph .x.axis path {
+    display: none;
+}
+
+.test-graph .y.axis line, .y.axis path {
+    fill: none;
+    stroke: #000;
+}
+

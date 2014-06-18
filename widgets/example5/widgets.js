@@ -27,14 +27,15 @@ $we.register('mapWidget', ['/bower_components/jquery/dist/jquery.min.js', 'css/q
 
     function fetchMapSettings ($mapContainer, spinner) {
 
-      $.when( loadSettings($mapContainer), loadStyles($mapContainer) ).done(function (settings, styles) {
+      $.when( loadSettings($mapContainer), loadStyles($mapContainer), loadMarkerInfo($mapContainer) ).done(function (settings, styles, marker) {
 
         spinner.remove();
 
         var settings = settings[0];
         var styles = (styles && styles.length) ? styles[0] : null;
+        var marker = marker[0];
 
-        render($mapContainer[0], settings, styles);
+        render($mapContainer[0], settings, styles, marker);
 
       });
 
@@ -51,6 +52,17 @@ $we.register('mapWidget', ['/bower_components/jquery/dist/jquery.min.js', 'css/q
       return $.ajax(settingsSrc);
     }
 
+    function loadMarkerInfo ($mapContainer) {
+
+      var markerInfoSrc = $mapContainer.attr('data-widget-marker-info');
+
+      if (!markerInfoSrc) {
+        throw new Error('QS Map Widget: Map marker required');
+      }
+
+      return $.ajax(markerInfoSrc);
+    }
+
     function loadStyles ($mapContainer) {
 
       var styleSrc = $mapContainer.attr('data-map-style-src');
@@ -61,10 +73,49 @@ $we.register('mapWidget', ['/bower_components/jquery/dist/jquery.min.js', 'css/q
 
     }
 
-    function render(mapContainer, settings, style) {
+    function setMarkers(map, locations) {
 
+      var infowindow = new google.maps.InfoWindow({
+          content: "holding..."
+      });
+      for (var i = 0; i < locations.length; i++) {
+          var pins = locations[i];
+          console.log(pins.imgsrc);
+          var mapIkon = {
+              url: pins.imgsrc,
+              // This marker is 20 pixels wide by 32 pixels tall.
+              size: new google.maps.Size(23,31),
+              // The origin for this image is 0,0.
+              origin: new google.maps.Point(0,0),
+              // The anchor for this image is the base of the flagpole at 0,32.
+              anchor: new google.maps.Point(0, 30)
+          };
+          var myLatLng = new google.maps.LatLng(pins.cords[0], pins.cords[1]);
+          var marker = new google.maps.Marker({
+              position: myLatLng,
+              map: map,
+              icon: mapIkon,
+              title: pins.header,
+              text: pins.info
+          });
+          google.maps.event.addListener(marker, 'click', function () {
+              infowindow.setContent(
+                  '<div class="info_content">' +
+                  '<h3>' + this.title + '</h3>' +
+                  '' + this.text + '' +
+                  '</div>'
+              );
+              infowindow.open(map, this);
+          });
+      }
+
+    //AutoCenter();
+    }
+
+    function render(mapContainer, settings, style, marker) {
       var mapSettings = settings;
       var mapStyle = style;
+      var markerInfo = marker.markers;
 
       var mapOptions = {
         zoom: mapSettings.zoom,
@@ -77,7 +128,9 @@ $we.register('mapWidget', ['/bower_components/jquery/dist/jquery.min.js', 'css/q
       }
 
       var map = new google.maps.Map(mapContainer, mapOptions);
-
+      if (markerInfo) {
+        setMarkers(map, markerInfo);
+      }
     }
 
   };
