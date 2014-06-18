@@ -1,8 +1,8 @@
 'use strict';
 
-$we.register('fruitget', ['/bower_components/underscore/underscore.js', '/bower_components/jquery/dist/jquery.min.js', '/example2/css/banana.css'], function (widgets) {
+$we.register('fruitget', ['/bower_components/underscore/underscore.js', '/bower_components/jquery/dist/jquery.min.js', '/widgets/example2/css/banana.css'], function (widgets) {
 
-  var templateUrl = '/example2/templates/fruits.tpl';
+  var templateUrl = '/widgets/example2/templates/fruits.tpl';
   var fruits = widgets;
 
   var FruitWidget = function FruitWidget(el) {

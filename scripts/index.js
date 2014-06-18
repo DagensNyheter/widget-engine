@@ -19,7 +19,7 @@
  *          });
  *
  * @examples:
- *  see the /example directory
+ *  see the /example in widget directory
  *
  */
 
@@ -47,7 +47,7 @@
     var widgets = document.querySelectorAll('[data-widget-type="' + widgetName + '"]');
 
     if (!widgets.length) {
-      throw new Error('No ' + widgetName + ' Widgets found');
+      throw new Error('QS WidgetEngine: No ' + widgetName + ' Widgets found');
     }
 
     var i = 0,
@@ -124,6 +124,54 @@
       }
     }
   };
+
+  /**
+   * Constructor to add a new Spinner el into widgets
+   * Start method: @param {widget DOM element}
+   *
+   * @usage:
+   *
+   *    var spinner = $we.spinner();
+   *    spinner.start(widget);
+   *    spinner.stop();
+   *
+   *
+   */
+  WidgetEngine.prototype.spinner = function () {
+
+    var Spinner = function Spinner () {
+
+      this.el = (function () {
+
+        var el = document.createElement('div');
+        el.innerHTML = '...Laddar';
+
+        return el;
+
+      }());
+
+    };
+
+    Spinner.prototype = {
+
+      start: function (widget) {
+
+        if (!widget) { throw new Error('QS WidgetEngine, spinner: Missig widgets @param'); }
+
+        widget.appendChild(this.el);
+        return this;
+      },
+
+      remove: function () {
+        this.el.remove();
+      }
+
+    };
+
+    return new Spinner();
+
+  };
+
 
 
   /**
